@@ -29,8 +29,9 @@ jobs:
         - name: Run Code Coverage
           run: |
             poetry run coverage run -m pytest
+            poetry run coverage json
         - name: Upload Code Coverage
           uses: codecov/codecov-action@v3
           with:
             token: ${{ secrets.CODECOV_TOKEN }}
-            file: .coverage
+            file: coverage.json

@@ -3,4 +3,5 @@
 .python-version
 .pytest_cache
 .tool-versions
+coverage.json
 __pycache__
