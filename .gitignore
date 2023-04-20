@@ -1,4 +1,6 @@
+.coverage
 .idea
 .python-version
+.pytest_cache
 .tool-versions
 __pycache__

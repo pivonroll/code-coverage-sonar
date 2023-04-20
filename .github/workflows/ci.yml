@@ -1,0 +1,33 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - "*"
+  pull_request:
+    branches:
+      - main
+jobs:
+  code_coverage:
+    name: Run Code Coverage
+    runs-on: ubuntu-22.04
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: Setup Python
+          uses: actions/setup-python@v2
+          with:
+            python-version: 3.9
+        - name: Install dependencies
+          run: |
+            poetry install
+        - name: Run Code Coverage
+          run: |
+            coverage run -m pytest
+        - name: Upload Code Coverage
+          uses: codecov/codecov-action@v3
+          with:
+            token: ${{ secrets.CODECOV_TOKEN }}
+            file: ./coverage.xml
