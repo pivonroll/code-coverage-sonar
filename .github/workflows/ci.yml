@@ -9,6 +9,7 @@ on:
   pull_request:
     branches:
       - main
+    types: [opened, synchronize, reopened]
 jobs:
   code_coverage:
     name: Run Code Coverage
@@ -29,4 +30,9 @@ jobs:
         - name: Run Code Coverage
           run: |
             poetry run coverage run -m pytest
-            poetry run coverage json
+            poetry run coverage xml
+        - name: SonarCloud Scan
+          uses: SonarSource/sonarcloud-github-action@master
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
